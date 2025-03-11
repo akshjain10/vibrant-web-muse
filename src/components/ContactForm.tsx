@@ -152,7 +152,7 @@ const ContactForm = () => {
           </div>
           <div>
             <h4 className="font-medium">Email Address</h4>
-            <p className="text-gray-600">info@esenciaoverseasindia.com</p>
+            <p className="text-gray-600">info@esenciaindia.com</p>
           </div>
         </div>
         

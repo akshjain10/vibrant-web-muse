@@ -16,9 +16,9 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center animate-fade-up">
             <div className="mb-6 flex justify-center">
               <img 
-                src="/lovable-uploads/c19cc804-a382-43c0-8d8f-015ff8d0f6c9.png" 
+                src="/lovable-uploads/Phenola1.gif"
                 alt="Esencia Overseas Logo" 
-                className="h-32 object-contain"
+
               />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-bold leading-tight mb-6">
@@ -126,18 +126,18 @@ const Index = () => {
             <ProductCard 
               title="Phenola Citra" 
               description="A multipurpose cleaning & deodorizing solution made with special blend of Neem extract, Nilgiri oil, Citronella oil and Lemongrass."
-              image="/lovable-uploads/54544cbc-23fa-4235-b60d-173665a3f787.png"
+              image="/lovable-uploads/Citra.png"
             />
             <ProductCard 
               title="Phenola Active Black" 
               description="Scientifically proven protection. Black Disinfectant Fluid, Phenolic Type. Kills 99.9% of germs & bacteria."
-              image="/lovable-uploads/60b2e162-fa78-4db1-91a5-f1e3017c9e4f.png"
+              image="/lovable-uploads/AB.png"
               variant="dark"
             />
             <ProductCard 
               title="Dr. White Herbal Floor Cleaner" 
               description="A multi-purpose Herbal Floor cleaner made with Pine oil, Eucalyptus & Lemon-grass Oil."
-              image="/lovable-uploads/ee637292-49a2-4b44-9fd7-7faedf537a7c.png"
+              image="/lovable-uploads/DW.png"
             />
           </div>
           
@@ -249,7 +249,7 @@ const Index = () => {
                 </p>
                 <p className="flex items-center gap-3 mb-2">
                   <Mail className="text-primary" size={18} />
-                  <span>info@esenciaoverseasindia.com</span>
+                  <span>info@esenciaindia.com</span>
                 </p>
                 <p className="flex items-center gap-3 mb-2">
                   <Phone className="text-primary" size={18} />
@@ -307,7 +307,7 @@ const Index = () => {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <MapPin className="text-accent mt-1 flex-shrink-0" size={18} />
-                  <span>Mumbai & Assam, India</span>
+                  <span>Mumbai, India</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Phone className="text-accent flex-shrink-0" size={18} />
@@ -315,14 +315,14 @@ const Index = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="text-accent flex-shrink-0" size={18} />
-                  <span>info@esenciaoverseasindia.com</span>
+                  <span>info@esenciaindia.com</span>
                 </li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
-            <p>© 2024 Esencia Overseas. All rights reserved.</p>
+            <p>© 2025 Esencia Overseas. All rights reserved.</p>
             <p className="mt-2 text-sm">
               Information in this website are intellectual property of Esencia Overseas | DO NOT COPY
             </p>
