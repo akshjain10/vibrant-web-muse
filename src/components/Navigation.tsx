@@ -31,6 +31,7 @@ const Navigation = () => {
             ? 'absolute top-full left-0 right-0 bg-white p-6 shadow-lg flex flex-col items-start gap-4' 
             : 'hidden lg:flex'
         }`}>
+          <a href="#home" className="font-medium hover:text-primary transition-colors">Home</a>
           <a href="#products" className="font-medium hover:text-primary transition-colors">Products</a>
           <a href="#about" className="font-medium hover:text-primary transition-colors">About Us</a>
           <a href="#contact" className="font-medium hover:text-primary transition-colors">Contact</a>
