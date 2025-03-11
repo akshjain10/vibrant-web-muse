@@ -14,13 +14,6 @@ const Index = () => {
       <section className="min-h-screen flex items-center pt-20 bg-gradient-to-b from-secondary to-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center animate-fade-up">
-            <div className="mb-6 flex justify-center">
-              <img 
-                src="/lovable-uploads/Phenola1.gif"
-                alt="Esencia Overseas Logo" 
-
-              />
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-bold leading-tight mb-6">
               A FDA WHO-GMP Approved <span className="text-accent">Drugs</span> and <span className="text-accent">Cosmetics</span> Industry
             </h1>
@@ -39,11 +32,11 @@ const Index = () => {
             <div className="mt-12 flex flex-wrap justify-center gap-8">
               <CertificationBadge 
                 title="WHO-GMP Certified" 
-                image="/lovable-uploads/10915408-4369-4c38-9301-036ea2c427ae.png"
+                image="/lovable-uploads/gmp.jpg"
               />
               <CertificationBadge 
                 title="ISO 9001:2015" 
-                image="/lovable-uploads/654fe979-ff23-4e52-8429-336fe8010b7a.png"
+                image="/lovable-uploads/iso.jpg"
               />
             </div>
           </div>
@@ -307,11 +300,11 @@ const Index = () => {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <MapPin className="text-accent mt-1 flex-shrink-0" size={18} />
-                  <span>Mumbai, India</span>
+                  <span>Oberoi Garden City, Goregaon East(D2), Mumbai - 400063, Maharashtra, India</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Phone className="text-accent flex-shrink-0" size={18} />
-                  <span>+91 22 4880 8712</span>
+                  <span>+91 22 4880 8712, Extn: 1212</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="text-accent flex-shrink-0" size={18} />
@@ -322,7 +315,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
-            <p>© 2025 Esencia Overseas. All rights reserved.</p>
+            <p>© 2024 Esencia Overseas. All rights reserved.</p>
             <p className="mt-2 text-sm">
               Information in this website are intellectual property of Esencia Overseas | DO NOT COPY
             </p>
