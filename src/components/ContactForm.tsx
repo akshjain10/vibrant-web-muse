@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { mail, user, send, phone, mapPin } from 'lucide-react';
+import { Mail, User, Send, Phone, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactForm = () => {
@@ -51,7 +51,7 @@ const ContactForm = () => {
             <label htmlFor="name" className="block text-sm font-medium">Your Name</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <user className="h-5 w-5 text-gray-400" />
+                <User className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 id="name"
@@ -70,7 +70,7 @@ const ContactForm = () => {
             <label htmlFor="email" className="block text-sm font-medium">Email Address</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <mail className="h-5 w-5 text-gray-400" />
+                <Mail className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 id="email"
@@ -91,7 +91,7 @@ const ContactForm = () => {
             <label htmlFor="phone" className="block text-sm font-medium">Phone Number</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <phone className="h-5 w-5 text-gray-400" />
+                <Phone className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 id="phone"
@@ -141,14 +141,14 @@ const ContactForm = () => {
           className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
         >
           Send Message
-          <send className="h-5 w-5" />
+          <Send className="h-5 w-5" />
         </button>
       </form>
       
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex items-start space-x-4">
           <div className="bg-primary/10 p-3 rounded-full">
-            <mail className="h-6 w-6 text-primary" />
+            <Mail className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h4 className="font-medium">Email Address</h4>
@@ -158,7 +158,7 @@ const ContactForm = () => {
         
         <div className="flex items-start space-x-4">
           <div className="bg-primary/10 p-3 rounded-full">
-            <phone className="h-6 w-6 text-primary" />
+            <Phone className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h4 className="font-medium">Phone Number</h4>
@@ -168,7 +168,7 @@ const ContactForm = () => {
         
         <div className="flex items-start space-x-4 md:col-span-2">
           <div className="bg-primary/10 p-3 rounded-full">
-            <mapPin className="h-6 w-6 text-primary" />
+            <MapPin className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h4 className="font-medium">Office Address</h4>

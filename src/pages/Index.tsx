@@ -1,9 +1,8 @@
-
 import Navigation from '@/components/Navigation';
 import ContactForm from '@/components/ContactForm';
 import ProductCard from '@/components/ProductCard';
 import CertificationBadge from '@/components/CertificationBadge';
-import { ArrowRight, CheckCircle2, MoveRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MoveRight, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 const Index = () => {
@@ -249,15 +248,15 @@ const Index = () => {
                   For Business enquiry, please reach us at
                 </p>
                 <p className="flex items-center gap-3 mb-2">
-                  <mail className="text-primary" size={18} />
+                  <Mail className="text-primary" size={18} />
                   <span>info@esenciaoverseasindia.com</span>
                 </p>
                 <p className="flex items-center gap-3 mb-2">
-                  <phone className="text-primary" size={18} />
+                  <Phone className="text-primary" size={18} />
                   <span>+91 22 4880 8712, Extn: 1212</span>
                 </p>
                 <p className="flex items-center gap-3">
-                  <phone className="text-primary" size={18} />
+                  <Phone className="text-primary" size={18} />
                   <span>Mob: +91 60030 77601</span>
                 </p>
               </div>
@@ -307,15 +306,15 @@ const Index = () => {
               <h4 className="text-lg font-bold mb-4">Contact Information</h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <mapPin className="text-accent mt-1 flex-shrink-0" size={18} />
+                  <MapPin className="text-accent mt-1 flex-shrink-0" size={18} />
                   <span>Mumbai & Assam, India</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <phone className="text-accent flex-shrink-0" size={18} />
+                  <Phone className="text-accent flex-shrink-0" size={18} />
                   <span>+91 22 4880 8712</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <mail className="text-accent flex-shrink-0" size={18} />
+                  <Mail className="text-accent flex-shrink-0" size={18} />
                   <span>info@esenciaoverseasindia.com</span>
                 </li>
               </ul>
