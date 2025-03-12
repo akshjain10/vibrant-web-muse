@@ -8,6 +8,10 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import SupplyChainSection from '@/components/sections/SupplyChainSection';
 import QualitySection from '@/components/sections/QualitySection';
+import CertificationBadge from '@/components/CertificationBadge';
+import { ArrowRight, CheckCircle2, MoveRight, Mail, Phone, MapPin } from 'lucide-react';
+import Logo from '@/components/Logo';
+
 
 const homeProducts = [
   {
@@ -28,7 +32,13 @@ const homeProducts = [
     title: "Dr. White Herbal Floor Cleaner", 
     description: "A multi-purpose Herbal Floor cleaner made with Pine oil, Eucalyptus & Lemon-grass Oil.",
     image: "/lovable-uploads/DW.png"
-  }
+  },
+  {
+      id: 4,
+      title: "Eliza Beauty Gel",
+      description: "A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives.",
+      image: "/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png"
+    }
 ];
 
 const personalCareProducts = [
