@@ -1,8 +1,8 @@
 
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "node cloudflare-build.js",
   "outputDirectory": "dist",
-  "installCommand": "npm install",
+  "installCommand": "npm install --no-package-lock",
   "framework": "vite",
   "buildCache": true
 }
