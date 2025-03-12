@@ -1,9 +1,55 @@
+
 import Navigation from '@/components/Navigation';
 import ContactForm from '@/components/ContactForm';
 import ProductCard from '@/components/ProductCard';
+import ProductCarousel from '@/components/ProductCarousel';
 import CertificationBadge from '@/components/CertificationBadge';
 import { ArrowRight, CheckCircle2, MoveRight, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from '@/components/Logo';
+
+const homeProducts = [
+  {
+    id: 1,
+    title: "Phenola Citra", 
+    description: "A multipurpose cleaning & deodorizing solution made with special blend of Neem extract, Nilgiri oil, Citronella oil and Lemongrass.",
+    image: "/lovable-uploads/Citra.png"
+  },
+  {
+    id: 2,
+    title: "Phenola Active Black", 
+    description: "Scientifically proven protection. Black Disinfectant Fluid, Phenolic Type. Kills 99.9% of germs & bacteria.",
+    image: "/lovable-uploads/AB.png",
+    variant: "dark" as const
+  },
+  {
+    id: 3,
+    title: "Dr. White Herbal Floor Cleaner", 
+    description: "A multi-purpose Herbal Floor cleaner made with Pine oil, Eucalyptus & Lemon-grass Oil.",
+    image: "/lovable-uploads/DW.png"
+  }
+];
+
+const personalCareProducts = [
+  {
+    id: 1,
+    title: "Formulae Body Oliv'Oil", 
+    description: "With goodness of Italian Olive Oil, natural herbs & extracts like Haridra, Arjuna, Manjistha, Karpoor & many more for versatile skin care.",
+    image: "/lovable-uploads/b6438a4f-add5-4580-8b16-69777f056bc7.png"
+  },
+  {
+    id: 2,
+    title: "Formulae Hand Sanitizer", 
+    description: "Advanced Hand Sanitizer that kills 99.8% germs instantaneously without water with Aloe Vera extract.",
+    image: "/lovable-uploads/f68fb996-0550-40f0-b87c-90a0b50b75dd.png",
+    variant: "dark" as const
+  },
+  {
+    id: 3,
+    title: "Eliza Beauty Gel", 
+    description: "A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives.",
+    image: "/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png"
+  }
+];
 
 const Index = () => {
   return (
@@ -11,16 +57,26 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center pt-20 bg-gradient-to-b from-secondary to-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center animate-fade-up">
+      <section id="home" className="min-h-screen relative flex items-center pt-20">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/lovable-uploads/4a407f4e-8195-41e5-86f8-016599565b52.png" 
+            alt="Esencia Overseas Hero" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-transparent"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-2xl animate-fade-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-bold leading-tight mb-6">
-              A FDA WHO-GMP Approved <span className="text-accent">Drugs</span> and <span className="text-accent">Cosmetics</span> Industry
+              Quality Home Care with <span className="text-accent">Premium</span> Products
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Premium quality products for home care, personal care, and hygiene
+            <p className="text-xl text-gray-700 mb-8">
+              Providing FDA WHO-GMP approved solutions for your home and personal care needs
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-primary text-white px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-primary/90 transition-all group">
                 Product Catalog
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -29,7 +85,7 @@ const Index = () => {
                 Contact Us
               </button>
             </div>
-            <div className="mt-12 flex flex-wrap justify-center gap-8">
+            <div className="mt-12 flex flex-wrap gap-8">
               <CertificationBadge 
                 title="WHO-GMP Certified" 
                 image="/lovable-uploads/gmp.jpg"
@@ -110,51 +166,17 @@ const Index = () => {
       {/* Products Section */}
       <section id="products" className="py-20 bg-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-sora font-bold mb-4">Our Products</h2>
-            <p className="text-gray-600">Discover our range of premium quality products</p>
-          </div>
+          <ProductCarousel 
+            products={homeProducts} 
+            title="Our Products" 
+            description="Discover our range of premium quality products"
+          />
           
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <ProductCard 
-              title="Phenola Citra" 
-              description="A multipurpose cleaning & deodorizing solution made with special blend of Neem extract, Nilgiri oil, Citronella oil and Lemongrass."
-              image="/lovable-uploads/Citra.png"
-            />
-            <ProductCard 
-              title="Phenola Active Black" 
-              description="Scientifically proven protection. Black Disinfectant Fluid, Phenolic Type. Kills 99.9% of germs & bacteria."
-              image="/lovable-uploads/AB.png"
-              variant="dark"
-            />
-            <ProductCard 
-              title="Dr. White Herbal Floor Cleaner" 
-              description="A multi-purpose Herbal Floor cleaner made with Pine oil, Eucalyptus & Lemon-grass Oil."
-              image="/lovable-uploads/DW.png"
-            />
-          </div>
-          
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-sora font-bold mb-4">Personal Care Products</h2>
-            <p className="text-gray-600">Premium quality personal care solutions</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <ProductCard 
-              title="Formulae Body Oliv'Oil" 
-              description="With goodness of Italian Olive Oil, natural herbs & extracts like Haridra, Arjuna, Manjistha, Karpoor & many more for versatile skin care."
-              image="/lovable-uploads/b6438a4f-add5-4580-8b16-69777f056bc7.png"
-            />
-            <ProductCard 
-              title="Formulae Hand Sanitizer" 
-              description="Advanced Hand Sanitizer that kills 99.8% germs instantaneously without water with Aloe Vera extract."
-              image="/lovable-uploads/f68fb996-0550-40f0-b87c-90a0b50b75dd.png"
-              variant="dark"
-            />
-            <ProductCard 
-              title="Eliza Beauty Gel" 
-              description="A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives."
-              image="/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png"
+          <div className="mt-32">
+            <ProductCarousel 
+              products={personalCareProducts} 
+              title="Personal Care Products" 
+              description="Premium quality personal care solutions"
             />
           </div>
           
