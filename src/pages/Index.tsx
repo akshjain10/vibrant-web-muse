@@ -1,11 +1,13 @@
 
+import React from 'react';
 import Navigation from '@/components/Navigation';
 import ContactForm from '@/components/ContactForm';
-import ProductCard from '@/components/ProductCard';
 import ProductCarousel from '@/components/ProductCarousel';
-import CertificationBadge from '@/components/CertificationBadge';
-import { ArrowRight, CheckCircle2, MoveRight, Mail, Phone, MapPin } from 'lucide-react';
-import Logo from '@/components/Logo';
+import Footer from '@/components/Footer';
+import HeroSection from '@/components/sections/HeroSection';
+import AboutSection from '@/components/sections/AboutSection';
+import SupplyChainSection from '@/components/sections/SupplyChainSection';
+import QualitySection from '@/components/sections/QualitySection';
 
 const homeProducts = [
   {
@@ -55,114 +57,10 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
+      <HeroSection />
+      <AboutSection />
+      <SupplyChainSection />
       
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen relative flex items-center pt-20">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/lovable-uploads/4a407f4e-8195-41e5-86f8-016599565b52.png" 
-            alt="Esencia Overseas Hero" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-transparent"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-2xl animate-fade-up">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-bold leading-tight mb-6">
-              Quality Home Care with <span className="text-accent">Premium</span> Products
-            </h1>
-            <p className="text-xl text-gray-700 mb-8">
-              Providing FDA WHO-GMP approved solutions for your home and personal care needs
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-primary text-white px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-primary/90 transition-all group">
-                Product Catalog
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="bg-white text-primary border border-primary px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-gray-50 transition-all">
-                Contact Us
-              </button>
-            </div>
-            <div className="mt-12 flex flex-wrap gap-8">
-              <CertificationBadge 
-                title="WHO-GMP Certified" 
-                image="/lovable-uploads/gmp.jpg"
-              />
-              <CertificationBadge 
-                title="ISO 9001:2015" 
-                image="/lovable-uploads/iso.jpg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-up">
-              <h2 className="text-accent text-5xl font-sora font-bold mb-2">About us</h2>
-              <p className="text-gray-700 mb-6">
-                A FDA approved D & C manufacturing industry in India with state-of-the-art manufacturing facility situated in Silchar, Assam (India) with In-house Analytical laboratory and association with NABL accredited Laboratories for Quality check & assurance in compliance with the guidelines as per D&C Act, 1945 & Central Drugs Standard Control Organization (CDSCO) under the Directorate General of Health Services, Ministry of Health & Family Welfare, Government of India
-              </p>
-              <h3 className="text-3xl font-sora font-bold mb-2">
-                Our <span className="text-green-500">Quality</span> Control <span className="text-gray-700">Engineering</span>
-              </h3>
-              <p className="text-gray-700 mb-6">
-                Esencia has built a robust team & associates of technical experts of various domains – cosmetology, pharmacology, Toxicology, Process Engineering, Mechatronics, electrical & Electronics engineering for Production development, Ayurveda, Nutraceutical, food processing and allied sectors.
-              </p>
-              <p className="text-gray-700 mb-6">
-                Scientist with over 32 years of experience in production & product development in Personal Care & hygiene industry; Chief scientist with more than 20 years of experience in Research & Management of Natural & Organic cosmetics in accordance with BDIH Bundesverband Der Industrie-und Handelsunternehmen (Germany), ECO-CERT® & Vegan guidelines.
-              </p>
-              <button className="bg-primary text-white px-8 py-4 rounded-full inline-flex items-center gap-2 hover:bg-primary/90 transition-all group">
-                Learn More
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-            <div>
-              <img 
-                src="/lovable-uploads/5d4c7340-575a-4c1c-bc76-39a780452bc6.png" 
-                alt="Quality Control Lab" 
-                className="rounded-2xl shadow-lg w-full h-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Supply Chain Section */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-sora font-bold mb-2">
-              Our <span className="text-accent">Supply</span> Chain associates
-            </h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              To ensure quality consistency and standards, we are associates with some of the renowned business houses dealing with ABDOS, Piramal, Petrochem limited, Godrej Chemicals, Lubrizol USA, Gujarat Alkalies and Chemicals limited etc. for supply of raw materials with Indian Pharmacopoeia, British Pharmacopoeia & US Pharmacopoeia Standards.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-sora text-gray-700 mb-4">Vision</h3>
-              <p className="text-gray-600 italic">
-                "We desire to accomplish business excellence through the highest standard of ethics, advanced manufacturing & management practices, assuring the best quality product & services, innovation, productivity and customer satisfaction, helping our partners to achieve their core business objectives"
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-sora text-gray-700 mb-4">Mission</h3>
-              <p className="text-gray-600">
-                "To be a leading Manufacturer, Channel <span className="text-accent font-medium">Partner, Supplier & Exporter</span> of distinctive chemical based APIs and Pharmaceuticals, Ayurvedic products and R&D services; A supply chain company of <span className="text-green-600 font-medium">Organic agro-based produces and food processing items</span> ensuring a quality workmanship towards <span className="text-accent font-medium">healthcare & Wellness</span> in daily life"
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Products Section */}
       <section id="products" className="py-20 bg-white">
         <div className="container mx-auto px-6">
@@ -189,54 +87,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quality Section */}
-      <section id="quality" className="py-20 bg-secondary relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl font-sora font-bold mb-6">Quality Certifications</h2>
-            <p className="text-gray-700 mb-8">
-              At Esencia Overseas, we maintain the highest standards of quality in all our products and manufacturing processes.
-            </p>
-            
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <CheckCircle2 className="text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold">WHO-GMP Certified</h3>
-                  <p className="text-gray-600">Our manufacturing facilities adhere to the stringent standards set by the World Health Organization's Good Manufacturing Practices.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <CheckCircle2 className="text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold">ISO 9001:2015 Certified</h3>
-                  <p className="text-gray-600">We maintain a robust quality management system that meets international standards for consistency and customer satisfaction.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <CheckCircle2 className="text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold">FDA Approved</h3>
-                  <p className="text-gray-600">Our products comply with the regulations set by the Food and Drug Administration, ensuring safety and efficacy.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <CheckCircle2 className="text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold">NABL Accredited Testing</h3>
-                  <p className="text-gray-600">We partner with National Accreditation Board for Testing and Calibration Laboratories (NABL) accredited labs for quality testing.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="absolute right-0 top-0 h-full w-1/3 bg-primary/10 -z-10 hidden lg:block"></div>
-      </section>
-
+      <QualitySection />
+      
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-white">
         <div className="container mx-auto px-6">
@@ -282,68 +134,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Footer */}
-      <footer className="bg-primary text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="mb-4">
-                <Logo className="text-white" />
-              </div>
-              <p className="text-gray-300">
-                A FDA WHO-GMP approved Drugs and Cosmetics Industry providing premium quality products for healthcare and wellness.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
-                <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#products" className="text-gray-300 hover:text-white transition-colors">Products</a></li>
-                <li><a href="#quality" className="text-gray-300 hover:text-white transition-colors">Quality Control</a></li>
-                <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Product Categories</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Home Care & Hygiene</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Personal Care</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Disinfectants</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Beauty Products</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Ayurvedic Products</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Contact Information</h4>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <MapPin className="text-accent mt-1 flex-shrink-0" size={18} />
-                  <span>Oberoi Garden City, Goregaon East(D2), Mumbai - 400063, Maharashtra, India</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Phone className="text-accent flex-shrink-0" size={18} />
-                  <span>+91 22 4880 8712, Extn: 1212</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Mail className="text-accent flex-shrink-0" size={18} />
-                  <span>info@esenciaindia.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
-            <p>© 2024 Esencia Overseas. All rights reserved.</p>
-            <p className="mt-2 text-sm">
-              Information in this website are intellectual property of Esencia Overseas | DO NOT COPY
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
