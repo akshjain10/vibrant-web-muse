@@ -15,6 +15,9 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
+  ssr: {
+        noExternal: true, // Prevents bundling issues in Workers
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
