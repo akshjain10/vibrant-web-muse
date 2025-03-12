@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navigation from '@/components/Navigation';
 import ContactForm from '@/components/ContactForm';
@@ -8,10 +7,7 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import SupplyChainSection from '@/components/sections/SupplyChainSection';
 import QualitySection from '@/components/sections/QualitySection';
-import CertificationBadge from '@/components/CertificationBadge';
-import { ArrowRight, CheckCircle2, MoveRight, Mail, Phone, MapPin } from 'lucide-react';
-import Logo from '@/components/Logo';
-
+import { ArrowRight, Mail, Phone } from 'lucide-react';
 
 const homeProducts = [
   {
