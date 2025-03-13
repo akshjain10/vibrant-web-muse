@@ -16,6 +16,10 @@ try {
   console.log('Building project...');
   execSync('npm run build', { stdio: 'inherit' });
   
+  // Ensure worker.js is generated
+  console.log('Generating Cloudflare worker...');
+  execSync('node cloudflare-worker.js', { stdio: 'inherit' });
+  
   console.log('Build completed successfully!');
 } catch (error) {
   console.error('Build failed:', error);

@@ -43,6 +43,14 @@ async function handleRequest(request) {
 }
 `;
 
-// Write the worker script to worker.js (not index.js)
-fs.writeFileSync(path.join(__dirname, 'dist', 'worker.js'), workerScript);
+// Write the worker script to the dist directory
+const distDir = path.join(__dirname, 'dist');
+
+// Make sure the dist directory exists
+if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
+}
+
+// Write the worker script
+fs.writeFileSync(path.join(distDir, 'worker.js'), workerScript);
 console.log('Cloudflare Worker script generated successfully!');
