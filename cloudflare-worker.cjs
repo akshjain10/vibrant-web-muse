@@ -1,5 +1,5 @@
 import fs from 'fs';
-const path = require('path');
+import path from 'path';
 
 // Create a Cloudflare Worker that serves the static assets
 const workerScript = `
