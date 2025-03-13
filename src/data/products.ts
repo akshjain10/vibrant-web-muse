@@ -102,7 +102,34 @@ export const products: Product[] = [
     category: "Home Care"
   },
   {
-    id: 4,
+      id: 4,
+      title: "Dr. Black Disinfectant Fluid",
+      description: "An active germicide and deodorizer suitable for Hospitals, Nursing homes, Sick rooms, Toilets and Public Lavatories, Drains & sinks.",
+      image: "/lovable-uploads/DB.png",
+      detailedDescription: "Dr. Black Disinfectant Fluid is .",
+      gallery: [
+        { id: 1, url: "/lovable-uploads/DB.png", alt: "Dr. Black Disinfectant Fluid bottle" },
+        { id: 2, url: "/lovable-uploads/DW.png", alt: "Dr. White Herbal Floor Cleaner in use" },
+        { id: 3, url: "/lovable-uploads/pi.png", alt: "Dr. White Herbal Floor Cleaner ingredients" }
+      ],
+      features: [
+        "abc",
+        "abc",
+        "abc",
+        "abc",
+        "abc",
+        "abc"
+      ],
+      specifications: {
+        "Ingredients": "MonoChloroPhenol",
+        "Available Sizes": "500ml, 5L",
+        "Application": "All types of floors including marble, granite, ceramic, and wood",
+        "Dilution Ratio": "1 cap in 1 bucket (10L) of water"
+      },
+      category: "Home Care"
+  },
+  {
+    id: 5,
     title: "Eliza Beauty Gel",
     description: "A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives.",
     image: "/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png",
@@ -129,7 +156,7 @@ export const products: Product[] = [
     category: "Personal Care"
   },
   {
-    id: 5,
+    id: 6,
     title: "Formulae Body Oliv'Oil", 
     description: "With goodness of Italian Olive Oil, natural herbs & extracts like Haridra, Arjuna, Manjistha, Karpoor & many more for versatile skin care.",
     image: "/lovable-uploads/b6438a4f-add5-4580-8b16-69777f056bc7.png",
@@ -149,14 +176,14 @@ export const products: Product[] = [
     ],
     specifications: {
       "Key Ingredients": "Italian Olive Oil, Haridra, Arjuna, Manjistha, Karpoor",
-      "Available Sizes": "100ml, 250ml",
+      "Available Sizes": "100ml, 200ml",
       "Application": "Body massage, daily moisturization",
       "Skin Type": "Suitable for normal to dry skin"
     },
     category: "Personal Care"
   },
   {
-    id: 6,
+    id: 7,
     title: "Formulae Hand Sanitizer", 
     description: "Advanced Hand Sanitizer that kills 99.8% germs instantaneously without water with Aloe Vera extract.",
     image: "/lovable-uploads/f68fb996-0550-40f0-b87c-90a0b50b75dd.png",
@@ -177,7 +204,7 @@ export const products: Product[] = [
     ],
     specifications: {
       "Active Ingredients": "Alcohol (70%), Aloe Vera extract",
-      "Available Sizes": "50ml, 100ml, 250ml, 500ml",
+      "Available Sizes": "100ml, 500ml, 5L",
       "Application": "Hand sanitization",
       "Fragrance": "Mild, fresh scent"
     },
