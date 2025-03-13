@@ -1,15 +1,19 @@
 
-name = "vibrant-web-muse"
+name = "esencia-india-website"
 compatibility_date = "2025-03-12"
 
 # Define the entry point for the Worker
 main = "dist/worker.js"
 
 [build]
-command = "npm run build && node cloudflare-worker.js"
+command = "node cloudflare-build.js"
 
 [site]
 bucket = "./dist"
 
 [dev]
 port = 8787
+
+# For Pages deployment
+[env.production]
+vars = { ENVIRONMENT = "production" }

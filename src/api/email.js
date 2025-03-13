@@ -6,7 +6,21 @@ export async function onRequest(context) {
     if (context.request.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed" }), {
         status: 405,
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+
+    // CORS preflight request handling
+    if (context.request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
       });
     }
 
@@ -14,20 +28,30 @@ export async function onRequest(context) {
     const formData = await context.request.json();
     const { name, email, phone, subject, message } = formData;
 
+    // Log the received data for debugging
+    console.log("Received form data:", { name, email, phone, subject, message });
+
     // Validate required fields
     if (!name || !email || !subject || !message) {
       return new Response(JSON.stringify({ error: "Required fields missing" }), {
         status: 400,
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
       });
     }
 
     // SendGrid API key from environment variable
     const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY;
     if (!SENDGRID_API_KEY) {
+      console.error("SendGrid API key missing");
       return new Response(JSON.stringify({ error: "Server configuration error" }), {
         status: 500,
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
       });
     }
 
@@ -57,6 +81,8 @@ export async function onRequest(context) {
       ]
     };
 
+    console.log("Sending email via SendGrid with payload:", JSON.stringify(emailData));
+
     // Send email via SendGrid API
     const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
       method: "POST",
@@ -67,24 +93,35 @@ export async function onRequest(context) {
       body: JSON.stringify(emailData)
     });
 
+    console.log("SendGrid API response status:", response.status);
+
     if (!response.ok) {
       const error = await response.text();
       console.error("SendGrid API error:", error);
-      return new Response(JSON.stringify({ error: "Failed to send email" }), {
+      return new Response(JSON.stringify({ error: "Failed to send email", details: error }), {
         status: 500,
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
       });
     }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
     });
   } catch (error) {
     console.error("Email sending error:", error);
-    return new Response(JSON.stringify({ error: "Server error" }), {
+    return new Response(JSON.stringify({ error: "Server error", details: error.message }), {
       status: 500,
-      headers: { "Content-Type": "application/json" }
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
     });
   }
 }

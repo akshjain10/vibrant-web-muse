@@ -8,7 +8,7 @@ try {
   console.log('Cleaning up any existing lock files...');
   execSync('rm -f bun.lockb package-lock.json yarn.lock pnpm-lock.yaml');
   
-  // Install dependencies with npm
+  // Install dependencies with npm (no frozen lockfile)
   console.log('Installing dependencies with npm...');
   execSync('npm install', { stdio: 'inherit' });
   

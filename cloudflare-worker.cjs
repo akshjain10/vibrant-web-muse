@@ -1,5 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+
+// Use CommonJS style for Cloudflare worker script
+const fs = require('fs');
+const path = require('path');
 
 // Create a Cloudflare Worker that serves the static assets
 const workerScript = `
@@ -34,6 +36,7 @@ async function handleRequest(request) {
     newResponse.headers.set('X-Frame-Options', 'DENY');
     newResponse.headers.set('X-XSS-Protection', '1; mode=block');
     newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' api.sendgrid.com;");
     
     return newResponse;
   } catch (error) {

@@ -1,6 +1,6 @@
 
 {
-  "buildCommand": "npm install && npm run build && node cloudflare-worker.js",
+  "buildCommand": "node cloudflare-build.js",
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": "vite",
