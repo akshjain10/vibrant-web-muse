@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navigation from '@/components/Navigation';
 import ContactForm from '@/components/ContactForm';
@@ -8,58 +9,13 @@ import AboutSection from '@/components/sections/AboutSection';
 import SupplyChainSection from '@/components/sections/SupplyChainSection';
 import QualitySection from '@/components/sections/QualitySection';
 import { ArrowRight, Mail, Phone } from 'lucide-react';
-
-const homeProducts = [
-  {
-    id: 1,
-    title: "Phenola Citra", 
-    description: "A multipurpose cleaning & deodorizing solution made with special blend of Neem extract, Nilgiri oil, Citronella oil and Lemongrass.",
-    image: "/lovable-uploads/Citra.png"
-  },
-  {
-    id: 2,
-    title: "Phenola Active Black", 
-    description: "Scientifically proven protection. Black Disinfectant Fluid, Phenolic Type. Kills 99.9% of germs & bacteria.",
-    image: "/lovable-uploads/AB.png",
-    variant: "dark" as const
-  },
-  {
-    id: 3,
-    title: "Dr. White Herbal Floor Cleaner", 
-    description: "A multi-purpose Herbal Floor cleaner made with Pine oil, Eucalyptus & Lemon-grass Oil.",
-    image: "/lovable-uploads/DW.png"
-  },
-  {
-      id: 4,
-      title: "Eliza Beauty Gel",
-      description: "A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives.",
-      image: "/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png"
-    }
-];
-
-const personalCareProducts = [
-  {
-    id: 1,
-    title: "Formulae Body Oliv'Oil", 
-    description: "With goodness of Italian Olive Oil, natural herbs & extracts like Haridra, Arjuna, Manjistha, Karpoor & many more for versatile skin care.",
-    image: "/lovable-uploads/b6438a4f-add5-4580-8b16-69777f056bc7.png"
-  },
-  {
-    id: 2,
-    title: "Formulae Hand Sanitizer", 
-    description: "Advanced Hand Sanitizer that kills 99.8% germs instantaneously without water with Aloe Vera extract.",
-    image: "/lovable-uploads/f68fb996-0550-40f0-b87c-90a0b50b75dd.png",
-    variant: "dark" as const
-  },
-  {
-    id: 3,
-    title: "Eliza Beauty Gel", 
-    description: "A versatile Unisex Moisturizer Gel with goodness of Aloe Vera, Jojoba Oil, Rose Hydrosol and other Ayurvedic Actives.",
-    image: "/lovable-uploads/b38f5131-7310-41d7-bb9e-c2814dcbea76.png"
-  }
-];
+import { Link } from 'react-router-dom';
+import { getHomeProducts, getPersonalCareProducts } from '@/data/products';
 
 const Index = () => {
+  const homeProducts = getHomeProducts();
+  const personalCareProducts = getPersonalCareProducts();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -85,10 +41,10 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <button className="bg-primary text-white px-8 py-4 rounded-full inline-flex items-center gap-2 hover:bg-primary/90 transition-all group">
+            <Link to="/products" className="bg-primary text-white px-8 py-4 rounded-full inline-flex items-center gap-2 hover:bg-primary/90 transition-all group">
               View All Products
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

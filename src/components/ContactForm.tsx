@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { Mail, User, Send, Phone, MapPin } from 'lucide-react';
+import { Mail, User, Send, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactForm = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,24 +22,48 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, you would send this data to a server
-    console.log(formData);
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message Sent",
-      description: "Thank you for contacting us. We'll get back to you soon!",
-    });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
+    try {
+      const response = await fetch('/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        toast({
+          title: "Message Sent",
+          description: "Thank you for contacting us. We'll get back to you soon!",
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Message Failed",
+        description: "There was an error sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -138,10 +163,18 @@ const ContactForm = () => {
         
         <button
           type="submit"
-          className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
+          disabled={isSubmitting}
+          className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
         >
-          Send Message
-          <Send className="h-5 w-5" />
+          {isSubmitting ? (
+            <>
+              Sending... <Loader2 className="h-5 w-5 animate-spin" />
+            </>
+          ) : (
+            <>
+              Send Message <Send className="h-5 w-5" />
+            </>
+          )}
         </button>
       </form>
       

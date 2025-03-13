@@ -1,0 +1,90 @@
+
+// Cloudflare Edge Function to send emails via SendGrid
+export async function onRequest(context) {
+  try {
+    // Only allow POST requests
+    if (context.request.method !== "POST") {
+      return new Response(JSON.stringify({ error: "Method not allowed" }), {
+        status: 405,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Get form data from request
+    const formData = await context.request.json();
+    const { name, email, phone, subject, message } = formData;
+
+    // Validate required fields
+    if (!name || !email || !subject || !message) {
+      return new Response(JSON.stringify({ error: "Required fields missing" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // SendGrid API key from environment variable
+    const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY;
+    if (!SENDGRID_API_KEY) {
+      return new Response(JSON.stringify({ error: "Server configuration error" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Prepare email content
+    const emailData = {
+      personalizations: [
+        {
+          to: [{ email: "info@esenciaindia.com" }],
+          subject: `Contact Form: ${subject}`
+        }
+      ],
+      from: { email: "no-reply@esenciaindia.com", name: "Esencia India Website" },
+      reply_to: { email: email, name: name },
+      content: [
+        {
+          type: "text/html",
+          value: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, '<br>')}</p>
+          `
+        }
+      ]
+    };
+
+    // Send email via SendGrid API
+    const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${SENDGRID_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(emailData)
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error("SendGrid API error:", error);
+      return new Response(JSON.stringify({ error: "Failed to send email" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (error) {
+    console.error("Email sending error:", error);
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+}

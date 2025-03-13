@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProductCard from './ProductCard';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -64,6 +65,10 @@ const ProductCarousel = ({ products, title, description }: ProductCarouselProps)
     return result;
   };
 
+  if (products.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full">
       <div className="text-center mb-12">
@@ -81,26 +86,24 @@ const ProductCarousel = ({ products, title, description }: ProductCarouselProps)
         </button>
         
         <div className="overflow-hidden px-4">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ 
-              transform: `translateX(0)` 
-            }}
-          >
+          <div className="flex transition-transform duration-500 ease-in-out">
             {getVisibleProducts().map((product, idx) => (
               <div 
                 key={`${product.id}-${idx}`} 
                 className={cn(
-                  "px-2 md:px-4 transition-opacity duration-300",
+                  "px-2 md:px-4 transition-all duration-300",
                   slidesToShow === 1 ? "w-full" : slidesToShow === 2 ? "w-1/2" : "w-1/3"
                 )}
               >
-                <ProductCard
-                  title={product.title}
-                  description={product.description}
-                  image={product.image}
-                  variant={product.variant}
-                />
+                <Link to={`/product/${product.id}`}>
+                  <ProductCard
+                    title={product.title}
+                    description={product.description}
+                    image={product.image}
+                    variant={product.variant}
+                    className="h-full"
+                  />
+                </Link>
               </div>
             ))}
           </div>

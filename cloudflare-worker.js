@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Create a simple Cloudflare Worker that serves the static assets
+// Create a Cloudflare Worker that serves the static assets
 const workerScript = `
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
@@ -24,21 +24,25 @@ async function handleRequest(request) {
   }
   
   // Set response object with appropriate headers
-  const response = await fetch(new Request(url.origin + pathname, request));
-  
-  // Clone the response so that it's no longer immutable
-  const newResponse = new Response(response.body, response);
-  
-  // Add security headers
-  newResponse.headers.set('X-Content-Type-Options', 'nosniff');
-  newResponse.headers.set('X-Frame-Options', 'DENY');
-  newResponse.headers.set('X-XSS-Protection', '1; mode=block');
-  newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  
-  return newResponse;
+  try {
+    const response = await fetch(new Request(url.origin + pathname, request));
+    
+    // Clone the response so that it's no longer immutable
+    const newResponse = new Response(response.body, response);
+    
+    // Add security headers
+    newResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    newResponse.headers.set('X-Frame-Options', 'DENY');
+    newResponse.headers.set('X-XSS-Protection', '1; mode=block');
+    newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    return newResponse;
+  } catch (error) {
+    return new Response('Not Found', { status: 404 });
+  }
 }
 `;
 
-// Write the worker script
+// Write the worker script to worker.js (not index.js)
 fs.writeFileSync(path.join(__dirname, 'dist', 'worker.js'), workerScript);
 console.log('Cloudflare Worker script generated successfully!');
