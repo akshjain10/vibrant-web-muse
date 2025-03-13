@@ -18,6 +18,11 @@ const Navigation = () => {
   }, []);
 
   const isHomePage = location.pathname === '/';
+  
+  // Determine hover color based on background
+  const navLinkHoverClass = isScrolled 
+    ? "hover:text-primary" // When scrolled (white background), hover text blue
+    : "hover:text-white"; // When not scrolled (transparent background), hover text white
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
@@ -39,20 +44,26 @@ const Navigation = () => {
         }`}>
           {isHomePage ? (
             <>
-              <a href="#home" className="font-medium hover:text-white transition-colors">Home</a>
-              <a href="#products" className="font-medium hover:text-white transition-colors">Products</a>
-              <a href="#about" className="font-medium hover:text-white transition-colors">About Us</a>
+              <a href="#home" className={`font-medium ${navLinkHoverClass} transition-colors`}>Home</a>
+              <a href="#products" className={`font-medium ${navLinkHoverClass} transition-colors`}>Products</a>
+              <a href="#about" className={`font-medium ${navLinkHoverClass} transition-colors`}>About Us</a>
             </>
           ) : (
             <>
-              <Link to="/" className="font-medium hover:text-white transition-colors">Home</Link>
-              <Link to="/products" className="font-medium hover:text-white transition-colors">Products</Link>
-              <Link to="/#about" className="font-medium hover:text-white transition-colors">About Us</Link>
+              <Link to="/" className={`font-medium ${navLinkHoverClass} transition-colors`}>Home</Link>
+              <Link to="/products" className={`font-medium ${navLinkHoverClass} transition-colors`}>Products</Link>
+              <Link to="/#about" className={`font-medium ${navLinkHoverClass} transition-colors`}>About Us</Link>
             </>
           )}
-          <Link to={isHomePage ? "#contact" : "/#contact"} className={isHomePage ? "font-medium hover:text-primary/90 transition-colors bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90" : "font-medium hover:text-primary/90 transition-colors bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90"}>
-            Get in Touch
-          </Link>
+          {isHomePage ? (
+            <a href="#contact" className="font-medium hover:bg-primary/90 transition-colors bg-primary text-white px-6 py-2 rounded-full">
+              Get in Touch
+            </a>
+          ) : (
+            <Link to="/#contact" className="font-medium hover:bg-primary/90 transition-colors bg-primary text-white px-6 py-2 rounded-full">
+              Get in Touch
+            </Link>
+          )}
         </div>
       </div>
     </nav>

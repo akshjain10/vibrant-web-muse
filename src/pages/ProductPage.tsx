@@ -16,9 +16,11 @@ const ProductPage = () => {
   const productId = id ? parseInt(id, 10) : 0;
   const product = getProductById(productId);
   
-  // Get related products from the same category
+  // Get related products from the same category, limit to max 3 products
   const relatedProducts = product ? 
-    getProductsByCategory(product.category || '').filter(p => p.id !== product.id) : 
+    getProductsByCategory(product.category || '')
+      .filter(p => p.id !== product.id)
+      .slice(0, 3) : 
     [];
   
   // Redirect to products page if product not found
