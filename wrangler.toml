@@ -1,18 +1,15 @@
+
 name = "vibrant-web-muse"
-compatibility_date = "2025-03-12"  # Use today's date
+compatibility_date = "2025-03-12"
 
 # Define the entry point for the Worker
-main = "dist/index.js"  # Change this if your entry file is in a different location
+main = "dist/worker.js"
 
 [build]
-command = "npm run build"  # Change to "bun build" if using Bun
-watch_dir = "src"
+command = "npm run build && node cloudflare-worker.js"
 
 [site]
-bucket = "./dist"  # Set this to your build output directory
+bucket = "./dist"
 
 [dev]
 port = 8787
-
-main = "dist/index.js"  # Change this based on your project's build output
-

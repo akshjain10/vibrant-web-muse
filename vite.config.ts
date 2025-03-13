@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
   ].filter(Boolean),
   ssr: {
-        noExternal: true, // Prevents bundling issues in Workers
+    noExternal: true, // Prevents bundling issues in Workers
   },
   resolve: {
     alias: {
@@ -26,6 +26,15 @@ export default defineConfig(({ mode }) => ({
   build: {
     sourcemap: true,
     minify: 'terser',
-    outDir: 'dist'
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@radix-ui/react-toast', '@radix-ui/react-tooltip']
+        }
+      }
+    }
   }
 }));

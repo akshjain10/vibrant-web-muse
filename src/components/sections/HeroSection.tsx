@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 import CertificationBadge from '../CertificationBadge';
 
 const HeroSection = () => {
@@ -23,16 +22,8 @@ const HeroSection = () => {
           <p className="text-xl text-gray-700 mb-8">
             Providing FDA WHO-GMP approved solutions for your home and personal care needs
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button className="bg-primary text-white px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-primary/90 transition-all group">
-              Product Catalog
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="bg-white text-primary border border-primary px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:bg-gray-50 transition-all">
-              Contact Us
-            </button>
-          </div>
-          <div className="mt-12 flex flex-wrap gap-8">
+          
+          <div className="mt-12 flex flex-wrap items-center justify-start gap-8">
             <CertificationBadge 
               title="WHO-GMP Certified" 
               image="/lovable-uploads/gmp.jpg"

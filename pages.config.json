@@ -1,6 +1,6 @@
 
 {
-  "buildCommand": "node cloudflare-build.js",
+  "buildCommand": "npm install --no-package-lock && npm run build && node cloudflare-worker.js",
   "outputDirectory": "dist",
   "installCommand": "npm install --no-package-lock",
   "framework": "vite",

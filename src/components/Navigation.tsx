@@ -34,10 +34,9 @@ const Navigation = () => {
           <a href="#home" className="font-medium hover:text-primary transition-colors">Home</a>
           <a href="#products" className="font-medium hover:text-primary transition-colors">Products</a>
           <a href="#about" className="font-medium hover:text-primary transition-colors">About Us</a>
-          <a href="#contact" className="font-medium hover:text-primary transition-colors">Contact</a>
-          <button className="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors">
+          <a href="#contact" className="font-medium hover:text-primary transition-colors bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors">
             Get in Touch
-          </button>
+          </a>
         </div>
       </div>
     </nav>
