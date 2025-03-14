@@ -45,8 +45,7 @@ export async function onRequest(context) {
       });
     }
 
-    // Get SendGrid API key from environment variable
-    // Using explicitly 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 for now
+    // Get SendGrid API key - using the explicit key for now
     const SENDGRID_API_KEY = "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";
     
     if (!SENDGRID_API_KEY) {
@@ -60,50 +59,61 @@ export async function onRequest(context) {
       });
     }
 
-    // Prepare email content
-    const emailData = {
-      personalizations: [
-        {
-          to: [{ email: "info@esenciaindia.com" }],
-          subject: `Contact Form: ${subject}`
-        }
-      ],
-      from: { email: "no-reply@esenciaindia.com", name: "Esencia India Website" },
-      reply_to: { email: email, name: name },
-      content: [
-        {
-          type: "text/html",
-          value: `
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-            <p><strong>Subject:</strong> ${subject}</p>
-            <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br>')}</p>
-          `
-        }
-      ]
+    // Import the SendGrid package using dynamic import
+    const sgMailModule = await import('@sendgrid/mail');
+    const sgMail = sgMailModule.default;
+    
+    // Set the API key
+    sgMail.setApiKey(SENDGRID_API_KEY);
+
+    // Prepare email message
+    const msg = {
+      to: 'info@esenciaindia.com',
+      from: 'no-reply@esenciaindia.com', // Must be verified sender in SendGrid
+      subject: `Contact Form: ${subject}`,
+      replyTo: email,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
     };
 
-    console.log("Sending email via SendGrid with payload:", JSON.stringify(emailData));
+    console.log("Preparing to send email with payload:", JSON.stringify(msg));
 
-    // Send email via SendGrid API
-    const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${SENDGRID_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(emailData)
-    });
-
-    console.log("SendGrid API response status:", response.status);
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("SendGrid API error:", error);
-      return new Response(JSON.stringify({ error: "Failed to send email", details: error }), {
+    try {
+      // Send the email
+      await sgMail.send(msg);
+      console.log("Email sent successfully");
+      
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    } catch (sgError) {
+      console.error("SendGrid sending error:", sgError);
+      
+      // More detailed logging if response exists
+      if (sgError.response) {
+        console.error("SendGrid error details:", {
+          status: sgError.response.status,
+          body: sgError.response.body,
+          headers: sgError.response.headers
+        });
+      }
+      
+      return new Response(JSON.stringify({ 
+        error: "Failed to send email", 
+        details: sgError.message,
+        code: sgError.code || 'unknown' 
+      }), {
         status: 500,
         headers: { 
           "Content-Type": "application/json",
@@ -111,14 +121,6 @@ export async function onRequest(context) {
         }
       });
     }
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
   } catch (error) {
     console.error("Email sending error:", error);
     return new Response(JSON.stringify({ error: "Server error", details: error.message }), {

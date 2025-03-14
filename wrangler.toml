@@ -17,3 +17,12 @@ port = 8787
 # For Pages deployment
 [env.production]
 vars = { ENVIRONMENT = "production" }
+
+# Routes configuration
+[[routes]]
+pattern = "/api/*"
+script = "dist/worker.js"
+
+[[routes]]
+pattern = "/*"
+script = "dist/worker.js"

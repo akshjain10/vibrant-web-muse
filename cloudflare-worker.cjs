@@ -16,6 +16,13 @@ async function handleRequest(request) {
   // Debug log the requested path
   console.log("Request path:", pathname);
   
+  // Handle API routes first
+  if (pathname.startsWith('/api/')) {
+    // Forward API requests to the appropriate function
+    console.log("API request detected:", pathname);
+    return fetch(request);
+  }
+  
   // Serve index.html for root path
   if (pathname === '/' || pathname === '') {
     pathname = '/index.html';
@@ -54,7 +61,7 @@ async function handleRequest(request) {
     newResponse.headers.set('X-Frame-Options', 'DENY');
     newResponse.headers.set('X-XSS-Protection', '1; mode=block');
     newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' api.sendgrid.com;");
+    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' api.sendgrid.com https://api.sendgrid.com;");
     
     return newResponse;
   } catch (error) {
