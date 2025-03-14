@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import { Mail, User, Send, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ContactForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +28,8 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
+      console.log("Submitting form data:", formData);
+      
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
@@ -36,6 +39,7 @@ const ContactForm = () => {
       });
       
       const data = await response.json();
+      console.log("Response from API:", data);
       
       if (response.ok) {
         toast({
@@ -51,6 +55,9 @@ const ContactForm = () => {
           subject: '',
           message: ''
         });
+        
+        // Scroll to top after form submission
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         throw new Error(data.error || 'Failed to send message');
       }

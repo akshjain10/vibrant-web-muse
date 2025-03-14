@@ -13,6 +13,9 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   let pathname = url.pathname;
   
+  // Debug log the requested path
+  console.log("Request path:", pathname);
+  
   // Serve index.html for root path
   if (pathname === '/' || pathname === '') {
     pathname = '/index.html';
@@ -24,17 +27,22 @@ async function handleRequest(request) {
     pathname = '/index.html';
   }
   
-  // Handle specific error case for /vibrant-web-muse/dist/index.html
-  if (pathname.includes('/vibrant-web-muse/dist/index.html')) {
-    pathname = '/index.html';
+  // Strip any project prefix from the pathname that might be causing issues
+  if (pathname.includes('/vibrant-web-muse/dist/')) {
+    pathname = pathname.replace('/vibrant-web-muse/dist', '');
+    if (pathname === '' || pathname === '/') {
+      pathname = '/index.html';
+    }
   }
   
   // Set response object with appropriate headers
   try {
-    const response = await fetch(new Request(url.origin + pathname, request));
+    // Try to fetch the requested resource
+    let response = await fetch(new Request(url.origin + pathname, request));
     
     // If the response is not found, serve index.html for SPA routing
     if (response.status === 404) {
+      console.log("Resource not found, serving index.html instead");
       return await fetch(new Request(url.origin + '/index.html', request));
     }
     
@@ -50,6 +58,7 @@ async function handleRequest(request) {
     
     return newResponse;
   } catch (error) {
+    console.error("Error serving request:", error);
     // If any error occurs, serve index.html as a fallback
     return await fetch(new Request(url.origin + '/index.html', request));
   }

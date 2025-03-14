@@ -2,6 +2,9 @@
 // Cloudflare Edge Function to send emails via SendGrid
 export async function onRequest(context) {
   try {
+    // Output logging for debugging
+    console.log("Email API endpoint called");
+    
     // Only allow POST requests
     if (context.request.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed" }), {
@@ -42,8 +45,10 @@ export async function onRequest(context) {
       });
     }
 
-    // SendGrid API key from environment variable
-    const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY;
+    // Get SendGrid API key from environment variable
+    // Using explicitly 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 for now
+    const SENDGRID_API_KEY = "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";
+    
     if (!SENDGRID_API_KEY) {
       console.error("SendGrid API key missing");
       return new Response(JSON.stringify({ error: "Server configuration error" }), {
