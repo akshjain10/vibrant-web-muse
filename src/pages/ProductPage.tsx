@@ -23,6 +23,11 @@ const ProductPage = () => {
       .slice(0, 3) : 
     [];
   
+  // Scroll to top on page load or when id changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+  
   // Redirect to products page if product not found
   useEffect(() => {
     if (!product) {

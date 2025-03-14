@@ -24,9 +24,19 @@ async function handleRequest(request) {
     pathname = '/index.html';
   }
   
+  // Handle specific error case for /vibrant-web-muse/dist/index.html
+  if (pathname.includes('/vibrant-web-muse/dist/index.html')) {
+    pathname = '/index.html';
+  }
+  
   // Set response object with appropriate headers
   try {
     const response = await fetch(new Request(url.origin + pathname, request));
+    
+    // If the response is not found, serve index.html for SPA routing
+    if (response.status === 404) {
+      return await fetch(new Request(url.origin + '/index.html', request));
+    }
     
     // Clone the response so that it's no longer immutable
     const newResponse = new Response(response.body, response);
@@ -36,11 +46,12 @@ async function handleRequest(request) {
     newResponse.headers.set('X-Frame-Options', 'DENY');
     newResponse.headers.set('X-XSS-Protection', '1; mode=block');
     newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' api.sendgrid.com;");
+    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' api.sendgrid.com;");
     
     return newResponse;
   } catch (error) {
-    return new Response('Not Found', { status: 404 });
+    // If any error occurs, serve index.html as a fallback
+    return await fetch(new Request(url.origin + '/index.html', request));
   }
 }
 `;

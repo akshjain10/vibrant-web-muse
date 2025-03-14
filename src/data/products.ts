@@ -106,19 +106,19 @@ export const products: Product[] = [
       title: "Dr. Black Disinfectant Fluid",
       description: "An active germicide and deodorizer suitable for Hospitals, Nursing homes, Sick rooms, Toilets and Public Lavatories, Drains & sinks.",
       image: "/lovable-uploads/DB.png",
-      detailedDescription: "Dr. Black Disinfectant Fluid is .",
+      detailedDescription: "Dr. Black Disinfectant Fluid is a powerful germicidal solution specially formulated for professional and home use. Its concentrated formula effectively eliminates harmful bacteria, viruses, and fungi on contact, making it ideal for healthcare environments and high-traffic areas where sanitation is critical. The long-lasting protection ensures surfaces remain sanitized, while its advanced deodorizing properties neutralize unpleasant odors at their source.",
       gallery: [
         { id: 1, url: "/lovable-uploads/DB.png", alt: "Dr. Black Disinfectant Fluid bottle" },
-        { id: 2, url: "/lovable-uploads/DW.png", alt: "Dr. White Herbal Floor Cleaner in use" },
-        { id: 3, url: "/lovable-uploads/pi.png", alt: "Dr. White Herbal Floor Cleaner ingredients" }
+        { id: 2, url: "/lovable-uploads/DW.png", alt: "Dr. Black Disinfectant in use" },
+        { id: 3, url: "/lovable-uploads/pi.png", alt: "Dr. Black Disinfectant ingredients" }
       ],
       features: [
-        "abc",
-        "abc",
-        "abc",
-        "abc",
-        "abc",
-        "abc"
+        "Hospital-grade disinfection power",
+        "Long-lasting germicidal action",
+        "Effective against a wide spectrum of pathogens",
+        "Concentrated formula for economical use",
+        "Neutralizes unpleasant odors",
+        "Suitable for commercial and residential use"
       ],
       specifications: {
         "Ingredients": "MonoChloroPhenol",

@@ -1,3 +1,4 @@
+
 import { execSync } from 'child_process';
 
 try {
@@ -16,6 +17,10 @@ try {
   // Ensure worker.js is generated
   console.log('Generating Cloudflare worker...');
   execSync('node cloudflare-worker.cjs', { stdio: 'inherit' });
+  
+  // List contents of dist directory for debugging
+  console.log('Listing dist directory contents:');
+  execSync('ls -la dist', { stdio: 'inherit' });
   
   console.log('Build completed successfully!');
 } catch (error) {
