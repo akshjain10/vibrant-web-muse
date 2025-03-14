@@ -22,7 +22,3 @@ vars = { ENVIRONMENT = "production" }
 [[routes]]
 pattern = "/api/*"
 script = "dist/worker.js"
-
-[[routes]]
-pattern = "/*"
-script = "dist/worker.js"
