@@ -28,14 +28,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
   return (
     <div className="container mx-auto px-6 py-10">
-      <Link 
-        to="/products" 
+      <button
+         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-gray-600 hover:text-primary mb-6"
       >
         <ArrowLeft size={20} />
         <span>Back to Products</span>
-      </Link>
-      
+      </button>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Product Images */}
         <div className="space-y-6">
