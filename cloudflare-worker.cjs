@@ -20,17 +20,16 @@ async function handleRequest(request) {
   if (pathname.startsWith('/api/')) {
     // Forward API requests to the appropriate function
     console.log("API request detected:", pathname);
+    
+    if (pathname === '/api/email') {
+      return fetch(request);
+    }
+    
     return fetch(request);
   }
   
-  // Serve index.html for root path
-  if (pathname === '/' || pathname === '') {
-    pathname = '/index.html';
-  }
-  
-  // Handle client-side routing by serving index.html for missing files
-  // that don't have file extensions (likely routes)
-  if (!pathname.includes('.')) {
+  // Handle SPA routing
+  if (pathname === '/' || pathname === '' || !pathname.includes('.')) {
     pathname = '/index.html';
   }
   

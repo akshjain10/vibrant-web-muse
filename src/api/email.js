@@ -59,11 +59,8 @@ export async function onRequest(context) {
       });
     }
 
-    // Import the SendGrid package using dynamic import
-    const sgMailModule = await import('@sendgrid/mail');
-    const sgMail = sgMailModule.default;
-    
-    // Set the API key
+    // Use CommonJS require for SendGrid
+    const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(SENDGRID_API_KEY);
 
     // Prepare email message

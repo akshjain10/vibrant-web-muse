@@ -1,0 +1,31 @@
+
+name = "esencia-overseas"
+type = "webpack"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2023-01-01"
+
+[site]
+bucket = "./dist"
+entry-point = "dist"
+
+[build]
+command = "node cloudflare-build.js"
+upload.format = "service-worker"
+
+[build.upload]
+dir = "dist"
+files = ["**/*.{html,css,js,json,png,jpg,svg,woff,woff2,ttf}"]
+
+[[routes]]
+pattern = "/api/*"
+script = "api"
+
+[[routes]]
+pattern = "/*"
+script = "worker"
+
+[env.production]
+name = "esencia-overseas-prod"

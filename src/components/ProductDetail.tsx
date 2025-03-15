@@ -3,6 +3,13 @@ import React, { useState } from 'react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Product } from '@/data/products';
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ProductDetailProps {
   product: Product;
@@ -21,18 +28,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
   return (
     <div className="container mx-auto px-6 py-10">
-      <button 
-        onClick={() => navigate(-1)} 
+      <Link 
+        to="/products" 
         className="flex items-center gap-2 text-gray-600 hover:text-primary mb-6"
       >
         <ArrowLeft size={20} />
         <span>Back to Products</span>
-      </button>
+      </Link>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Product Images */}
         <div className="space-y-6">
-          <div className="bg-gray-50 rounded-xl p-4 overflow-hidden h-80 md:h-[500px]">
+          {/* Desktop View */}
+          <div className="hidden md:block bg-gray-50 rounded-xl p-4 overflow-hidden h-80 md:h-[500px]">
             <img 
               src={gallery[activeImage].url} 
               alt={gallery[activeImage].alt} 
@@ -40,8 +48,29 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             />
           </div>
           
+          {/* Mobile Carousel View */}
+          <div className="block md:hidden w-full">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {gallery.map((image) => (
+                  <CarouselItem key={image.id}>
+                    <div className="bg-gray-50 rounded-xl p-4 h-80 flex items-center justify-center">
+                      <img 
+                        src={image.url} 
+                        alt={image.alt} 
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
+          
           {gallery.length > 1 && (
-            <div className="flex gap-4 overflow-x-auto pb-2">
+            <div className="hidden md:flex gap-4 overflow-x-auto pb-2">
               {gallery.map((image, index) => (
                 <div 
                   key={image.id}
