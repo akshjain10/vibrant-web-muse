@@ -39,13 +39,25 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Product Images */}
         <div className="space-y-6">
-          {/* Desktop View */}
-          <div className="hidden md:block bg-gray-50 rounded-xl p-4 overflow-hidden h-80 md:h-[500px]">
-            <img 
-              src={gallery[activeImage].url} 
-              alt={gallery[activeImage].alt} 
-              className="w-full h-full object-contain"
-            />
+          {/* Desktop View - Now using Carousel */}
+          <div className="hidden md:block w-full">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {gallery.map((image) => (
+                  <CarouselItem key={image.id}>
+                    <div className="bg-gray-50 rounded-xl p-4 h-[500px] flex items-center justify-center">
+                      <img 
+                        src={image.url} 
+                        alt={image.alt} 
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
           </div>
           
           {/* Mobile Carousel View */}
