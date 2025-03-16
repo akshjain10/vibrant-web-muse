@@ -3,8 +3,20 @@
 export async function onRequest(context) {
   try {
     // Output logging for debugging
-    console.log("Email API endpoint called");
+    console.log("Email API endpoint called with method:", context.request.method);
     
+    // CORS preflight request handling
+    if (context.request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
+      });
+    }
+
     // Only allow POST requests
     if (context.request.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed" }), {
@@ -12,17 +24,6 @@ export async function onRequest(context) {
         headers: { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
-
-    // CORS preflight request handling
-    if (context.request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
         }
       });
     }
@@ -45,8 +46,8 @@ export async function onRequest(context) {
       });
     }
 
-    // Get SendGrid API key - using the explicit key for now
-    const SENDGRID_API_KEY = "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";
+    // Get SendGrid API key
+    const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY || "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";
     
     if (!SENDGRID_API_KEY) {
       console.error("SendGrid API key missing");

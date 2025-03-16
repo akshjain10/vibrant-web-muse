@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Product } from '@/data/products';
 import { 
   Carousel,
@@ -18,9 +18,15 @@ interface ProductDetailProps {
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const [activeImage, setActiveImage] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
   
   // Use product gallery or create a gallery with the main image
   const gallery = product.gallery || [{ id: 1, url: product.image, alt: product.title }];
+
+  // Reset active image to 0 when product changes (for related products navigation)
+  useEffect(() => {
+    setActiveImage(0);
+  }, [product.id]);
 
   const handleImageClick = (index: number) => {
     setActiveImage(index);
@@ -39,9 +45,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Product Images */}
         <div className="space-y-6">
-          {/* Desktop View - Now using Carousel */}
+          {/* Desktop View - Using Carousel */}
           <div className="hidden md:block w-full">
-            <Carousel className="w-full">
+            <Carousel className="w-full" defaultIndex={activeImage} onSelect={(index) => setActiveImage(index)}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>
@@ -62,7 +68,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           
           {/* Mobile Carousel View */}
           <div className="block md:hidden w-full">
-            <Carousel className="w-full">
+            <Carousel className="w-full" defaultIndex={activeImage} onSelect={(index) => setActiveImage(index)}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>

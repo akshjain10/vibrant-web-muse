@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Mail, User, Send, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -30,14 +31,20 @@ const ContactForm = () => {
     try {
       console.log("Submitting form data:", formData);
       
-      const response = await fetch('/api/email', {
+      // Update to use the correct API endpoint with the full URL
+      const apiEndpoint = 'https://esencia.pages.dev/api/email';
+      console.log("Sending request to:", apiEndpoint);
+      
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
       });
       
+      console.log("Response status:", response.status);
       const data = await response.json();
       console.log("Response from API:", data);
       

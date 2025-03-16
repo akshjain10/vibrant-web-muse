@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '@/data/products';
 import Navigation from '@/components/Navigation';
@@ -11,6 +11,7 @@ import { getProductsByCategory } from '@/data/products';
 const ProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [key, setKey] = useState(Date.now());
   
   // Convert id to number and find product
   const productId = id ? parseInt(id, 10) : 0;
@@ -23,9 +24,10 @@ const ProductPage = () => {
       .slice(0, 3) : 
     [];
   
-  // Scroll to top on page load or when id changes
+  // Scroll to top and reset key when id changes for complete remount
   useEffect(() => {
     window.scrollTo(0, 0);
+    setKey(Date.now()); // Force remount of children components when product changes
   }, [id]);
   
   // Redirect to products page if product not found
@@ -45,7 +47,7 @@ const ProductPage = () => {
       
       <main className="flex-grow">
         <section className="py-10">
-          <ProductDetail product={product} />
+          <ProductDetail key={key} product={product} />
         </section>
         
         {relatedProducts.length > 0 && (

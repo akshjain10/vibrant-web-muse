@@ -16,15 +16,57 @@ async function handleRequest(request) {
   // Debug log the requested path
   console.log("Request path:", pathname);
   
+  // Handle CORS preflight requests
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Max-Age": "86400"
+      }
+    });
+  }
+  
   // Handle API routes first
   if (pathname.startsWith('/api/')) {
     // Forward API requests to the appropriate function
-    console.log("API request detected:", pathname);
+    console.log("API request detected:", pathname, "Method:", request.method);
     
     if (pathname === '/api/email') {
-      return fetch(request);
+      // Special handling for email API to ensure proper routing
+      try {
+        // Forward the request to the proper function
+        const emailResponse = await fetch(request);
+        console.log("Email API response status:", emailResponse.status);
+        
+        // Return the response with CORS headers
+        const newResponse = new Response(emailResponse.body, {
+          status: emailResponse.status,
+          statusText: emailResponse.statusText,
+          headers: {
+            ...Object.fromEntries(emailResponse.headers),
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+          }
+        });
+        
+        return newResponse;
+      } catch (error) {
+        console.error("Error processing email request:", error);
+        return new Response(JSON.stringify({ error: "Internal server error" }), {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        });
+      }
     }
     
+    // Pass through other API requests
     return fetch(request);
   }
   
