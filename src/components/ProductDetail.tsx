@@ -117,9 +117,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 <div 
                   key={image.id}
                   onClick={() => handleImageClick(index)}
-                  className={`w-20 h-20 cursor-pointer rounded-lg overflow-hidden border-2 p-1
-                    ${activeImage === index ? 'border-primary' : 'border-transparent'}
-                  `}
+                  className={`w-20 h-20 cursor-pointer rounded-lg overflow-hidden ${
+                    activeImage === index 
+                      ? 'border-2 border-primary ring-2 ring-primary/30 shadow-md' 
+                      : 'border-2 border-transparent hover:border-gray-300'
+                  } transition-all duration-200 p-1`}
                 >
                   <img 
                     src={image.url} 
