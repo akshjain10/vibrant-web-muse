@@ -1,4 +1,3 @@
-
 // Cloudflare Edge Function to send emails via SendGrid
 export async function onRequest(context) {
   try {
@@ -46,8 +45,8 @@ export async function onRequest(context) {
       });
     }
 
-    // Get SendGrid API key
-    const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY || "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";
+    // Get SendGrid API key from environment variables
+    const SENDGRID_API_KEY = context.env.SENDGRID_API_KEY;
     
     if (!SENDGRID_API_KEY) {
       console.error("SendGrid API key missing");
