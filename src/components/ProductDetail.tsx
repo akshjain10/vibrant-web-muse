@@ -9,6 +9,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi
 } from "@/components/ui/carousel";
 
 interface ProductDetailProps {
@@ -19,6 +20,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const [activeImage, setActiveImage] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const [api, setApi] = useState<CarouselApi>();
   
   // Use product gallery or create a gallery with the main image
   const gallery = product.gallery || [{ id: 1, url: product.image, alt: product.title }];
@@ -26,10 +28,32 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   // Reset active image to 0 when product changes (for related products navigation)
   useEffect(() => {
     setActiveImage(0);
-  }, [product.id]);
+    // Also reset carousel position when product changes
+    if (api) {
+      api.scrollTo(0);
+    }
+  }, [product.id, api]);
+
+  // Handle carousel API init and events
+  useEffect(() => {
+    if (!api) return;
+    
+    const onSelect = () => {
+      setActiveImage(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   const handleImageClick = (index: number) => {
     setActiveImage(index);
+    // Also move carousel to this image
+    if (api) {
+      api.scrollTo(index);
+    }
   };
 
   return (
@@ -47,12 +71,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
         <div className="space-y-6">
           {/* Desktop View - Using Carousel */}
           <div className="hidden md:block w-full">
-            <Carousel className="w-full" onSelect={(api) => {
-              if (api) {
-                const selectedIndex = api.selectedScrollSnap();
-                setActiveImage(selectedIndex);
-              }
-            }}>
+            <Carousel className="w-full" setApi={setApi}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>
@@ -73,12 +92,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           
           {/* Mobile Carousel View */}
           <div className="block md:hidden w-full">
-            <Carousel className="w-full" onSelect={(api) => {
-              if (api) {
-                const selectedIndex = api.selectedScrollSnap();
-                setActiveImage(selectedIndex);
-              }
-            }}>
+            <Carousel className="w-full" setApi={setApi}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>
