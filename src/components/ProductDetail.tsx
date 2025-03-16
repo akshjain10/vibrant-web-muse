@@ -47,7 +47,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
         <div className="space-y-6">
           {/* Desktop View - Using Carousel */}
           <div className="hidden md:block w-full">
-            <Carousel className="w-full" defaultIndex={activeImage} onSelect={(index) => setActiveImage(index)}>
+            <Carousel className="w-full" onSelect={(api) => {
+              if (api) {
+                const selectedIndex = api.selectedScrollSnap();
+                setActiveImage(selectedIndex);
+              }
+            }}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>
@@ -68,7 +73,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           
           {/* Mobile Carousel View */}
           <div className="block md:hidden w-full">
-            <Carousel className="w-full" defaultIndex={activeImage} onSelect={(index) => setActiveImage(index)}>
+            <Carousel className="w-full" onSelect={(api) => {
+              if (api) {
+                const selectedIndex = api.selectedScrollSnap();
+                setActiveImage(selectedIndex);
+              }
+            }}>
               <CarouselContent>
                 {gallery.map((image) => (
                   <CarouselItem key={image.id}>
