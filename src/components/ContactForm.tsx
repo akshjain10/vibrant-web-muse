@@ -33,15 +33,13 @@ const ContactForm = () => {
       // Determine correct API endpoint based on the current domain
       let apiEndpoint;
       const currentDomain = window.location.hostname;
-      const currentProtocol = window.location.protocol;
       
       if (currentDomain === 'localhost' || currentDomain.includes('lovable')) {
         // Development or preview environment
         apiEndpoint = `${window.location.origin}/api/email`;
       } else if (currentDomain.includes('esenciaindia.com')) {
-        // Production environment with both www and non-www versions
-        // Using protocol-relative URL to ensure it uses the same protocol (http or https)
-        apiEndpoint = `${currentProtocol}//${currentDomain}/api/email`;
+        // Production environment - use absolute URL
+        apiEndpoint = `https://${currentDomain}/api/email`;
       } else {
         // Fallback for other environments
         apiEndpoint = `/api/email`;
@@ -56,35 +54,9 @@ const ContactForm = () => {
           'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
-        // This ensures credentials like cookies are sent with the request
-        // which can help with authentication in some cases
-        credentials: 'same-origin'
       });
       
       console.log("Response status:", response.status);
-      
-      // Handle Cloudflare Access authentication challenge
-      if (response.status === 401 || response.status === 403) {
-        console.log("Authentication required for API access");
-        
-        // If authentication is required, we can either:
-        // 1. Redirect to the authentication page
-        // 2. Show a message to the user
-        toast({
-          title: "Authentication Required",
-          description: "Please login to send messages. Redirecting to authentication page...",
-        });
-        
-        // Option to redirect to authentication
-        // This will work if Cloudflare Access is configured to redirect back after authentication
-        setTimeout(() => {
-          window.location.href = `${apiEndpoint}`;
-        }, 2000);
-        
-        return;
-      }
-      
-      // Normal response handling
       const data = await response.json();
       console.log("Response from API:", data);
       

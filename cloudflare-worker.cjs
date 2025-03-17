@@ -29,58 +29,42 @@ async function handleRequest(request) {
     });
   }
   
-  // Check if this is an API request to the email endpoint
-  if (pathname === '/api/email') {
-    console.log("Email API request detected, bypassing authentication");
-    
-    // For email API, set a special header to bypass Cloudflare Access
-    // This requires configuring a bypass service token in Cloudflare Zero Trust
-    const headers = new Headers(request.headers);
-    
-    // If your Cloudflare Access is configured with a service token for bypassing
-    // You would add that token here. You'll need to set this up in Cloudflare dashboard
-    // headers.set('CF-Access-Client-Id', 'your-client-id-here');
-    // headers.set('CF-Access-Client-Secret', 'your-client-secret-here');
-    
-    // Clone the request with the new headers
-    const modifiedRequest = new Request(request, {
-      headers: headers
-    });
-    
-    try {
-      // Forward the request to the proper function
-      const emailResponse = await fetch(modifiedRequest);
-      console.log("Email API response status:", emailResponse.status);
-      
-      // Return the response with CORS headers
-      const newResponse = new Response(emailResponse.body, {
-        status: emailResponse.status,
-        statusText: emailResponse.statusText,
-        headers: {
-          ...Object.fromEntries(emailResponse.headers),
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
-        }
-      });
-      
-      return newResponse;
-    } catch (error) {
-      console.error("Error processing email request:", error);
-      return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
-  }
-  
-  // Handle API routes first (other than email which is handled above)
+  // Handle API routes first
   if (pathname.startsWith('/api/')) {
     // Forward API requests to the appropriate function
     console.log("API request detected:", pathname, "Method:", request.method);
+    
+    if (pathname === '/api/email') {
+      // Special handling for email API to ensure proper routing
+      try {
+        // Forward the request to the proper function
+        const emailResponse = await fetch(request);
+        console.log("Email API response status:", emailResponse.status);
+        
+        // Return the response with CORS headers
+        const newResponse = new Response(emailResponse.body, {
+          status: emailResponse.status,
+          statusText: emailResponse.statusText,
+          headers: {
+            ...Object.fromEntries(emailResponse.headers),
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+          }
+        });
+        
+        return newResponse;
+      } catch (error) {
+        console.error("Error processing email request:", error);
+        return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        });
+      }
+    }
     
     // Pass through other API requests
     return fetch(request);
