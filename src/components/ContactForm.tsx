@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Mail, User, Send, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -44,18 +43,15 @@ const ContactForm = () => {
     try {
       console.log("Submitting form data:", formData);
       
-      // Determine correct API endpoint based on the current domain
-      let apiEndpoint;
+      // Fix for determining correct API endpoint based on the current domain
       const currentDomain = window.location.hostname;
+      let apiEndpoint;
       
-      if (currentDomain === 'localhost' || currentDomain.includes('lovable')) {
-        // Development or preview environment
+      if (currentDomain === 'localhost') {
+        // Local development
         apiEndpoint = `${window.location.origin}/api/email`;
-      } else if (currentDomain.includes('esenciaindia.com')) {
-        // Production environment - use absolute URL
-        apiEndpoint = `https://${currentDomain}/api/email`;
       } else {
-        // Fallback for other environments
+        // Always use relative path for all environments including production
         apiEndpoint = `/api/email`;
       }
       
