@@ -23,7 +23,7 @@ async function handleRequest(request) {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, CF-Access-Client-Id, CF-Access-Client-Secret",
         "Access-Control-Max-Age": "86400"
       }
     });
@@ -35,10 +35,20 @@ async function handleRequest(request) {
     console.log("API request detected:", pathname, "Method:", request.method);
     
     if (pathname === '/api/email') {
-      // Special handling for email API to ensure proper routing
       try {
+        // Create a new request with the original request's data and add the CF Access headers if needed
+        const requestBody = await request.clone().json().catch(() => ({}));
+        
+        // Create a new request object to forward
+        const newRequest = new Request(request, {
+          headers: new Headers(request.headers)
+        });
+        
+        // Log the headers for debugging
+        console.log("Forwarding API request with headers:", Object.fromEntries(newRequest.headers));
+        
         // Forward the request to the proper function
-        const emailResponse = await fetch(request);
+        const emailResponse = await fetch(newRequest);
         console.log("Email API response status:", emailResponse.status);
         
         // Return the response with CORS headers
@@ -49,14 +59,18 @@ async function handleRequest(request) {
             ...Object.fromEntries(emailResponse.headers),
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, CF-Access-Client-Id, CF-Access-Client-Secret"
           }
         });
         
         return newResponse;
       } catch (error) {
         console.error("Error processing email request:", error);
-        return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
+        return new Response(JSON.stringify({ 
+          error: "Internal server error", 
+          details: error.message,
+          stack: error.stack
+        }), {
           status: 500,
           headers: {
             "Content-Type": "application/json",
@@ -102,7 +116,6 @@ async function handleRequest(request) {
     newResponse.headers.set('X-Frame-Options', 'DENY');
     newResponse.headers.set('X-XSS-Protection', '1; mode=block');
     newResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    newResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.gpteng.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://esencia.pages.dev https://api.sendgrid.com https://www.esenciaindia.com https://esenciaindia.com;");
     
     return newResponse;
   } catch (error) {

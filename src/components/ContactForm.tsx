@@ -1,7 +1,14 @@
+
 import React, { useState } from 'react';
 import { Mail, User, Send, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+
+// Service tokens interface
+interface ServiceTokens {
+  clientId: string | null;
+  clientSecret: string | null;
+}
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -14,6 +21,13 @@ const ContactForm = () => {
     subject: '',
     message: ''
   });
+
+  // In production, these would be provided by your backend through a secure API
+  // For now, we'll leave them null and rely on the Cloudflare bypass rule
+  const serviceTokens: ServiceTokens = {
+    clientId: null,  // In production: process.env.CF_ACCESS_CLIENT_ID
+    clientSecret: null  // In production: process.env.CF_ACCESS_CLIENT_SECRET
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -47,16 +61,44 @@ const ContactForm = () => {
       
       console.log("Sending request to:", apiEndpoint);
       
+      // Prepare headers with authentication tokens if available
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+      
+      // Add CF Access service tokens if available
+      if (serviceTokens.clientId && serviceTokens.clientSecret) {
+        headers['CF-Access-Client-Id'] = serviceTokens.clientId;
+        headers['CF-Access-Client-Secret'] = serviceTokens.clientSecret;
+      }
+      
+      console.log("Request headers:", headers);
+      
       const response = await fetch(apiEndpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
+        headers,
         body: JSON.stringify(formData),
       });
       
       console.log("Response status:", response.status);
+      
+      // Check if we received a Cloudflare Access authentication error
+      if (response.status === 401 || response.status === 403) {
+        console.warn("Authentication required by Cloudflare Access");
+        
+        // Get the authentication URL from the response headers
+        const authUrl = response.headers.get('CF-Authentication-Redirect');
+        if (authUrl) {
+          // Redirect to the Cloudflare Access login page
+          window.location.href = authUrl;
+          return;
+        }
+        
+        // If no redirect URL is provided, show a generic error
+        throw new Error("Authentication required to send messages. Please log in.");
+      }
+      
       const data = await response.json();
       console.log("Response from API:", data);
       
@@ -84,7 +126,9 @@ const ContactForm = () => {
       console.error('Error sending email:', error);
       toast({
         title: "Message Failed",
-        description: "There was an error sending your message. Please try again later.",
+        description: typeof error === 'object' && error !== null && 'message' in error 
+          ? String(error.message) 
+          : "There was an error sending your message. Please try again later.",
         variant: "destructive",
       });
     } finally {

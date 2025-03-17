@@ -13,7 +13,7 @@ export async function onRequest(context) {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
+          "Access-Control-Allow-Headers": "Content-Type, Authorization, CF-Access-Client-Id, CF-Access-Client-Secret"
         }
       });
     }
@@ -28,6 +28,33 @@ export async function onRequest(context) {
         }
       });
     }
+
+    // Check for CF Access credentials if enabled
+    // Note: In the actual production environment, you would uncomment this code and use real credentials
+    /*
+    const clientId = context.request.headers.get('CF-Access-Client-Id');
+    const clientSecret = context.request.headers.get('CF-Access-Client-Secret');
+    
+    // Get expected token values from environment variables
+    const expectedClientId = context.env.CF_ACCESS_CLIENT_ID;
+    const expectedClientSecret = context.env.CF_ACCESS_CLIENT_SECRET;
+    
+    // Verify the service tokens
+    if (
+      expectedClientId && 
+      expectedClientSecret && 
+      (clientId !== expectedClientId || clientSecret !== expectedClientSecret)
+    ) {
+      console.error("Invalid CF Access credentials");
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+    */
 
     // Get form data from request
     const formData = await context.request.json();
