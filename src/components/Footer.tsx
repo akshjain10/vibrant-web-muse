@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
-          <p>© 2024 Esencia Overseas. All rights reserved.</p>
+          <p>© 2025 Esencia Overseas. All rights reserved.</p>
           <p className="mt-2 text-sm">
             Information in this website are intellectual property of Esencia Overseas | DO NOT COPY
           </p>
