@@ -17,7 +17,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-2xl animate-fade-up">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-bold leading-tight mb-6">
-            Quality Home Care with <span className="text-accent">Premium</span> Products
+            <span className="text-accent">Premium</span> Home Care Products
           </h1>
           <p className="text-xl text-gray-700 mb-8">
             Providing FDA WHO-GMP approved solutions for your home and personal care needs
