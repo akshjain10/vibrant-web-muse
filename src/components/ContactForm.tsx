@@ -30,9 +30,21 @@ const ContactForm = () => {
     try {
       console.log("Submitting form data:", formData);
       
-      // Get the current domain and use it for API endpoint
-      const domain = window.location.origin;
-      const apiEndpoint = `${domain}/api/email`;
+      // Determine correct API endpoint based on the current domain
+      let apiEndpoint;
+      const currentDomain = window.location.hostname;
+      
+      if (currentDomain === 'localhost' || currentDomain.includes('lovable')) {
+        // Development or preview environment
+        apiEndpoint = `${window.location.origin}/api/email`;
+      } else if (currentDomain.includes('esenciaindia.com')) {
+        // Production environment - use absolute URL
+        apiEndpoint = `https://${currentDomain}/api/email`;
+      } else {
+        // Fallback for other environments
+        apiEndpoint = `/api/email`;
+      }
+      
       console.log("Sending request to:", apiEndpoint);
       
       const response = await fetch(apiEndpoint, {

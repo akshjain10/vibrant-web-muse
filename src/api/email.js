@@ -1,8 +1,10 @@
+
 // Cloudflare Edge Function to send emails via SendGrid
 export async function onRequest(context) {
   try {
     // Output logging for debugging
     console.log("Email API endpoint called with method:", context.request.method);
+    console.log("Request headers:", JSON.stringify(Object.fromEntries(context.request.headers)));
     
     // CORS preflight request handling
     if (context.request.method === "OPTIONS") {

@@ -56,7 +56,7 @@ async function handleRequest(request) {
         return newResponse;
       } catch (error) {
         console.error("Error processing email request:", error);
-        return new Response(JSON.stringify({ error: "Internal server error" }), {
+        return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
           status: 500,
           headers: {
             "Content-Type": "application/json",
