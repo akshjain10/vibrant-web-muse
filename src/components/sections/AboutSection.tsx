@@ -28,7 +28,7 @@ const AboutSection = () => {
           </div>
           <div>
             <img 
-              src="/lovable-uploads/5d4c7340-575a-4c1c-bc76-39a780452bc6.png" 
+              src="/uploads/5d4c7340-575a-4c1c-bc76-39a780452bc6.png"
               alt="Quality Control Lab" 
               className="rounded-2xl shadow-lg w-full h-auto"
             />

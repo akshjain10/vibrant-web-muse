@@ -5,7 +5,7 @@ const Logo = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`flex items-center ${className}`}>
     <img
-            src="/lovable-uploads/logoEO.png"
+            src="/uploads/logoEO.png"
             alt="Esencia Overseas Logo"
             className="h-12 w-auto"
           />

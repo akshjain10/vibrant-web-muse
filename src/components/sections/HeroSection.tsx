@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section id="home" className="min-h-screen relative flex items-center pt-20">
       <div className="absolute inset-0 z-0">
         <img 
-          src="/lovable-uploads/4a407f4e-8195-41e5-86f8-016599565b52.png" 
+          src="/uploads/4a407f4e-8195-41e5-86f8-016599565b52.png"
           alt="Esencia Overseas Hero" 
           className="w-full h-full object-cover"
         />
@@ -26,11 +26,11 @@ const HeroSection = () => {
           <div className="mt-12 flex flex-wrap items-center justify-start gap-8">
             <CertificationBadge 
               title="WHO-GMP Certified" 
-              image="/lovable-uploads/gmp.jpg"
+              image="/uploads/gmp.jpg"
             />
             <CertificationBadge 
               title="ISO 9001:2015" 
-              image="/lovable-uploads/iso.jpg"
+              image="/uploads/iso.jpg"
             />
           </div>
         </div>
