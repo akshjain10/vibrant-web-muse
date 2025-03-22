@@ -1,8 +1,14 @@
-
 export interface ProductImage {
   id: number;
   url: string;
   alt: string;
+}
+
+export interface ProductSizeOption {
+  size: string;
+  price?: number;
+  image?: string;
+  stock?: number;
 }
 
 export interface Product {
@@ -16,6 +22,8 @@ export interface Product {
   features?: string[];
   specifications?: Record<string, string>;
   category?: string;
+  sizeOptions?: ProductSizeOption[];
+  basePrice?: number;
 }
 
 export const products: Product[] = [
@@ -40,10 +48,14 @@ export const products: Product[] = [
     ],
     specifications: {
       "Contents": "Neem extract, Nilgiri oil, Citronella oil, Lemongrass",
-      "Available Sizes": "250ml, 500ml, 1L",
-      "Usage": "Floors, bathrooms, kitchens, and general surfaces",
       "Shelf Life": "24 months from manufacturing date"
     },
+    basePrice: 150,
+    sizeOptions: [
+      { size: "250ml", price: 150, stock: 20 },
+      { size: "500ml", price: 275, stock: 15 },
+      { size: "1L", price: 499, stock: 10 }
+    ],
     category: "Home Care"
   },
   {
@@ -68,10 +80,15 @@ export const products: Product[] = [
     ],
     specifications: {
       "Active Ingredients": "Phenolic compounds",
-      "Available Sizes": "250ml, 500ml, 1L, 5L",
-      "Application": "General disinfection, bathroom and kitchen sanitization",
       "Shelf Life": "36 months from manufacturing date"
     },
+    basePrice: 180,
+    sizeOptions: [
+      { size: "250ml", price: 180, stock: 25 },
+      { size: "500ml", price: 330, stock: 20 },
+      { size: "1L", price: 599, stock: 15 },
+      { size: "5L", price: 2799, stock: 5 }
+    ],
     category: "Home Care"
   },
   {
@@ -95,38 +112,45 @@ export const products: Product[] = [
     ],
     specifications: {
       "Ingredients": "Pine oil, Eucalyptus oil, Lemongrass oil",
-      "Available Sizes": "500ml, 1L, 5L",
-      "Application": "All types of floors including marble, granite, ceramic, and wood",
       "Dilution Ratio": "1 cap in 1 bucket (10L) of water"
     },
+    basePrice: 199,
+    sizeOptions: [
+      { size: "500ml", price: 199, stock: 30 },
+      { size: "1L", price: 375, stock: 25 },
+      { size: "5L", price: 1699, stock: 10 }
+    ],
     category: "Home Care"
   },
   {
-      id: 4,
-      title: "Dr. Black Disinfectant Fluid",
-      description: "An active germicide and deodorizer suitable for Hospitals, Nursing homes, Sick rooms, Toilets and Public Lavatories, Drains & sinks.",
-      image: "/uploads/DB.png",
-      detailedDescription: "Dr. Black Disinfectant Fluid is a powerful germicidal solution specially formulated for professional and home use. Its concentrated formula effectively eliminates harmful bacteria, viruses, and fungi on contact, making it ideal for healthcare environments and high-traffic areas where sanitation is critical. The long-lasting protection ensures surfaces remain sanitized, while its advanced deodorizing properties neutralize unpleasant odors at their source.",
-      gallery: [
-        { id: 1, url: "/uploads/DB.png", alt: "Dr. Black Disinfectant Fluid bottle" },
-        { id: 2, url: "/uploads/DW.png", alt: "Dr. Black Disinfectant in use" },
-        { id: 3, url: "/uploads/pi.png", alt: "Dr. Black Disinfectant ingredients" }
-      ],
-      features: [
-        "Hospital-grade disinfection power",
-        "Long-lasting germicidal action",
-        "Effective against a wide spectrum of pathogens",
-        "Concentrated formula for economical use",
-        "Neutralizes unpleasant odors",
-        "Suitable for commercial and residential use"
-      ],
-      specifications: {
-        "Ingredients": "MonoChloroPhenol",
-        "Available Sizes": "500ml, 5L",
-        "Application": "All types of floors including marble, granite, ceramic, and wood",
-        "Dilution Ratio": "1 cap in 1 bucket (10L) of water"
-      },
-      category: "Home Care"
+    id: 4,
+    title: "Dr. Black Disinfectant Fluid",
+    description: "An active germicide and deodorizer suitable for Hospitals, Nursing homes, Sick rooms, Toilets and Public Lavatories, Drains & sinks.",
+    image: "/uploads/DB.png",
+    detailedDescription: "Dr. Black Disinfectant Fluid is a powerful germicidal solution specially formulated for professional and home use. Its concentrated formula effectively eliminates harmful bacteria, viruses, and fungi on contact, making it ideal for healthcare environments and high-traffic areas where sanitation is critical. The long-lasting protection ensures surfaces remain sanitized, while its advanced deodorizing properties neutralize unpleasant odors at their source.",
+    gallery: [
+      { id: 1, url: "/uploads/DB.png", alt: "Dr. Black Disinfectant Fluid bottle" },
+      { id: 2, url: "/uploads/DW.png", alt: "Dr. Black Disinfectant in use" },
+      { id: 3, url: "/uploads/pi.png", alt: "Dr. Black Disinfectant ingredients" }
+    ],
+    features: [
+      "Hospital-grade disinfection power",
+      "Long-lasting germicidal action",
+      "Effective against a wide spectrum of pathogens",
+      "Concentrated formula for economical use",
+      "Neutralizes unpleasant odors",
+      "Suitable for commercial and residential use"
+    ],
+    specifications: {
+      "Ingredients": "MonoChloroPhenol",
+      "Dilution Ratio": "1 cap in 1 bucket (10L) of water"
+    },
+    basePrice: 220,
+    sizeOptions: [
+      { size: "500ml", price: 220, stock: 20 },
+      { size: "5L", price: 1999, stock: 8 }
+    ],
+    category: "Home Care"
   },
   {
     id: 5,
@@ -149,10 +173,13 @@ export const products: Product[] = [
     ],
     specifications: {
       "Active Ingredients": "Aloe Vera, Jojoba Oil, Rose Hydrosol, Ayurvedic extracts",
-      "Available Sizes": "100g, 250g",
-      "Application": "Face and body moisturization",
       "Skin Type": "All skin types"
     },
+    basePrice: 149,
+    sizeOptions: [
+      { size: "100g", price: 149, stock: 25 },
+      { size: "250g", price: 349, stock: 15 }
+    ],
     category: "Personal Care"
   },
   {
@@ -176,10 +203,13 @@ export const products: Product[] = [
     ],
     specifications: {
       "Key Ingredients": "Italian Olive Oil, Haridra, Arjuna, Manjistha, Karpoor",
-      "Available Sizes": "100ml, 200ml",
-      "Application": "Body massage, daily moisturization",
       "Skin Type": "Suitable for normal to dry skin"
     },
+    basePrice: 225,
+    sizeOptions: [
+      { size: "100ml", price: 225, stock: 20 },
+      { size: "200ml", price: 410, stock: 15 }
+    ],
     category: "Personal Care"
   },
   {
@@ -204,10 +234,14 @@ export const products: Product[] = [
     ],
     specifications: {
       "Active Ingredients": "Alcohol (70%), Aloe Vera extract",
-      "Available Sizes": "100ml, 500ml, 5L",
-      "Application": "Hand sanitization",
       "Fragrance": "Mild, fresh scent"
     },
+    basePrice: 85,
+    sizeOptions: [
+      { size: "100ml", price: 85, stock: 50 },
+      { size: "500ml", price: 350, stock: 25 },
+      { size: "5L", price: 2999, stock: 10 }
+    ],
     category: "Personal Care"
   }
 ];
